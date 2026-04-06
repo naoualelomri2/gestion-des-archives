@@ -1,0 +1,164 @@
+{% set archives_width = total_archives * 10 %}
+{% set storage_width = total_size / 10 %}
+
+{% block content %}
+<div class="welcome-bar">
+    
+
+    {% if selected_type == "recu" %}
+        <h2> Documents reçus</h2>
+    {% elif selected_type == "envoye" %}
+        <h2> Documents envoyés</h2>
+    {% else %}
+        <h2>📂 Tous les documents</h2>
+    {% endif %}
+</div>
+
+<div class="stats-section">
+    <div class="stat-box">
+        <p>Total d'archives</p>
+        <h2>{{ total_archives }}</h2>
+        <div class="progress-bar">
+            <div class="progress-fill archives-bar"></div>
+        </div>
+    </div>
+
+    <div class="stat-box">
+        <p>Stockage utilisé</p>
+        <h2>{{ total_size }} Ko</h2>
+        <div class="progress-bar">
+            <div class="progress-fill storage-bar"></div>
+        </div>
+    </div>
+</div>
+
+<div class="action-section">
+    <a href="{{ url_for('upload', type_doc=selected_type) }}" class="action-card">📤 Téléverser un document</a>
+    <a href="{{ url_for('filter_page', type_doc=selected_type) }}" class="action-card">📁 Afficher les archives</a>
+    <a href="{{ url_for('select_category') }}" class="action-card">🔙 Retour</a>
+</div>
+
+
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to bottom right, #d72638, #3fc060);
+        color: #fff;
+        margin: 0;
+        padding: 0;
+    }
+
+    .welcome-bar {
+        text-align: center;
+        padding: 40px 0 20px 0;
+        animation: fadeInTop 1s ease-in-out;
+    }
+
+    .welcome-text {
+        font-size: 2.5em;
+        font-weight: bold;
+    }
+
+    @keyframes fadeInTop {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .stats-section {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin: 20px;
+    }
+
+    .stat-box {
+        background: white;
+        color: #333;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        width: 250px;
+        text-align: center;
+    }
+
+    .stat-box h2 {
+        margin: 10px 0;
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: #e0e0e0;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-top: 10px;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: #31923e;
+        transition: width 0.6s ease-in-out;
+    }
+
+    .archives-bar {
+        width: {{ total_archives * 10 }}%;
+    }
+
+    .storage-bar {
+        width: {{ total_size / 10 }}%;
+    }
+
+    .action-section {
+        display: flex;
+        justify-content: center;
+        margin: 40px 0;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    .action-card {
+        background: white;
+        color: #333;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 20px 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease;
+    }
+
+    .action-card:hover {
+        transform: scale(1.05);
+        background-color: #30b251;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        color: white;
+    }
+
+    li {
+        margin: 10px 0;
+    }
+
+    a {
+        color: #fff;
+        font-weight: bold;
+        margin: 0 10px;
+    }
+
+    a:hover {
+        background-color: #30b251;
+        color: white;
+    }
+</style>
+{% endblock %}

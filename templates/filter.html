@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Filtrage des Archives</title>
+    
+    <style>
+        html, body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #d72638, #3fc060);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .form-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 450px;
+            margin: auto;
+        }
+
+        .filter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .filter-form label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .filter-form input {
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .filter-form button {
+            margin-top: 10px;
+            background-color: #3fc060;
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .filter-form button:hover {
+            background-color: #048312;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+        🔍 Rechercher une archive
+    </div>
+
+    <div class="form-wrapper">
+        <div class="container">
+            <form action="{{ url_for('filter_results', type_doc=selected_type) }}" method="GET" class="filter-form">
+                <label>Mot-clé du titre :</label>
+                <input type="text" name="keyword" placeholder="ex: facture, rapport...">
+
+                <label>Jour :</label>
+                <input type="number" name="day" min="1" max="31" placeholder="jj">
+
+                <label>Mois :</label>
+                <input type="number" name="month" min="1" max="12" placeholder="mm">
+
+                <label>Année :</label>
+                <input type="number" name="year" min="2000" max="2100" placeholder="aaaa">
+
+                <button type="submit">Rechercher</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

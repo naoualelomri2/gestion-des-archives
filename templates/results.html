@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultats de la recherche</title>
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #d72638, #3fc060);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .result-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: #165806;
+            margin-bottom: 25px;
+        }
+
+        .result-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-item strong {
+            color: #165806;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #333;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #3fc060;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-back:hover {
+            background-color: #1f6230;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+        📄 Résultats de la recherche
+    </div>
+
+    <div class="content-wrapper">
+        <div class="result-container">
+            <h2>Documents trouvés</h2>
+
+            {% if archives %}
+                {% for archive in archives %}
+                    <div class="result-item">
+                        <strong>{{ archive.titre }}</strong><br>
+                         Fichier : {{ archive.filename }}<br>
+                         Date : {{ archive.date_upload.strftime('%d/%m/%Y') }}<br>
+
+                        <div style="margin-top: 10px; display: flex; gap: 10px;">
+                            <a href="{{ url_for('download', type_doc=selected_type, filename=archive.filename) }}" class="btn-back" style="font-size: 14px;">📥 Télécharger</a>
+                            <a href="{{ url_for('delete', id=archive.id, type_doc=selected_type) }}" class="btn-back" style="background-color: crimson; font-size: 14px;">🗑 Supprimer</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-results">Aucun document trouvé.</p>
+            {% endif %}
+
+            <div style="text-align: center;">
+                <a href="{{ url_for('filter_page', type_doc=selected_type) }}" class="btn-back">Nouvelle recherche</a>
+                <a href="{{ url_for('dashboard', type_doc=selected_type) }}" class="btn-back" style="margin-left: 15px;"> Retour au tableau de bord</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

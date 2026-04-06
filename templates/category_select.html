@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Choix de catégorie</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #f44336, #4caf50); /* rouge - vert */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            height: 100vh;
+            overflow: hidden;
+            animation: fadeIn 1s ease-in;
+        }
+
+        header {
+            width: 100%;
+            text-align: center;
+            padding: 30px 0;
+            animation: slideDown 1.2s ease-out;
+        }
+
+        header img {
+            height: 80px;
+            transition: all 0.5s ease-in-out;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .categories {
+            display: flex;
+            gap: 50px;
+        }
+
+        .category {
+            background: white;
+            color: #333;
+            padding: 20px 40px;
+            border-radius: 20px;
+            font-size: 1.2em;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .category:hover {
+            transform: scale(1.1);
+            background-color: #f1f1f1;
+        }
+
+        @keyframes slideDown {
+            0% { transform: translateY(-100px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo">
+    </header>
+
+    <h1>Choisissez une catégorie</h1>
+
+    <div class="categories">
+        <a href="{{ url_for('dashboard', type_doc='recu') }}" class="category">📥 Documents reçus</a>
+        <a href="{{ url_for('dashboard', type_doc='envoye') }}" class="category">📤 Documents envoyés</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,2 @@
+easyocr
+torch   # EasyOCR depends on PyTorch
